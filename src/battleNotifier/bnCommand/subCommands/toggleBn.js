@@ -1,4 +1,4 @@
-const { messages } = require('../config');
+import { messages } from '../config';
 
 const toggleBn = async ({ message, store, isOn }) => {
   const user = message.author;
@@ -13,4 +13,4 @@ const toggleBn = async ({ message, store, isOn }) => {
   }
 };
 
-module.exports = toggleBn;
+export default toggleBn;

@@ -1,11 +1,11 @@
-const Discord = require('discord.js');
-const bbcode2Markdown = require('bbcode-to-markdown');
-const moment = require('moment');
-const { forEach } = require('lodash');
-const config = require('../../config');
-const createBN = require('./battleNotifier');
-const logger = require('./logger');
-const notifMessage = require('./notifications');
+import Discord from 'discord.js';
+import bbcode2Markdown from 'bbcode-to-markdown';
+import { format } from 'date-fns';
+import { forEach } from 'lodash-es';
+import config from './config';
+import createBN from './battleNotifier';
+import logger from './logger';
+import notifMessage from './notifications';
 
 const client = new Discord.Client();
 
@@ -18,7 +18,7 @@ const battleNotifier = createBN({ bnStorePath, client, fallbackChannelId });
 const bnLogsPath = isProdEnv ? logsPath : './bn/';
 logger.initialize(bnLogsPath);
 
-function discord() {
+const discord = () => {
   client.once('ready', () => {
     client.user.setPresence({
       status: 'online',
@@ -45,13 +45,15 @@ function discord() {
       client.login(config.discord.token);
     }
   });
-}
+};
 
-function sendMessage(channel, message) {
+export default discord;
+
+export const sendMessage = (channel, message) => {
   if (config.discord.token) {
     client.channels.cache.get(channel).send(message);
   }
-}
+};
 
 const alignPlacement = no => {
   if (no < 10) {
@@ -158,17 +160,18 @@ const extraRules = content => {
   return '';
 };
 
-function discordChatline(content) {
-  const ts = moment(content.timestamp, 'YYYY-MM-DD HH:mm:ss UTC').format(
+export const discordChatline = content => {
+  const ts = format(content.timestamp, 'HH:mm:ss');
+  /* const ts = moment(content.timestamp, 'YYYY-MM-DD HH:mm:ss UTC').format(
     'HH:mm:ss',
-  );
+  ); */
   sendMessage(
     config.discord.channels.battle,
     `[${ts}] (${content.kuski}): ${content.chatline}`,
   );
-}
+};
 
-function discordBesttime(content) {
+export const discordBesttime = content => {
   if (!content.battleIndex) {
     let text = '';
 
@@ -186,9 +189,9 @@ function discordBesttime(content) {
 
     sendMessage(config.discord.channels.times, text);
   }
-}
+};
 
-function discordBestmultitime(content) {
+export const discordBestmultitime = content => {
   if (!content.battleIndex) {
     sendMessage(
       config.discord.channels.times,
@@ -197,7 +200,7 @@ function discordBestmultitime(content) {
       } & ${content.kuski2} (${content.position}.)`,
     );
   }
-}
+};
 
 const battleToString = battle => {
   let text = `${config.discord.icons.started} **`;
@@ -208,7 +211,7 @@ const battleToString = battle => {
   return text;
 };
 
-async function discordBattlestart(content) {
+export const discordBattlestart = async content => {
   const battleString = battleToString(content);
   sendMessage(config.discord.channels.battle, battleString);
 
@@ -221,9 +224,9 @@ async function discordBattlestart(content) {
       stack: error.stack,
     });
   }
-}
+};
 
-function discordBattlequeue(content) {
+export const discordBattlequeue = content => {
   if (content.queue.length > 0) {
     let text = `${config.discord.icons.queue} **Queue:`;
     content.queue.map(q => {
@@ -239,9 +242,9 @@ function discordBattlequeue(content) {
       `${config.discord.icons.queue} **Queue is now empty**`,
     );
   }
-}
+};
 
-function discordBattleEnd(content) {
+export const discordBattleEnd = content => {
   if (content.aborted) {
     let text = `${config.discord.icons.ended} **`;
     text += `${battleIn(content.battleType, content.level)}${cripple(
@@ -249,9 +252,9 @@ function discordBattleEnd(content) {
     )} aborted**`;
     sendMessage(config.discord.channels.battle, text);
   }
-}
+};
 
-function discordBattleresults(content) {
+export const discordBattleresults = content => {
   let text = `${config.discord.icons.results} **`;
   text += battleIn(content.battleType, content.level);
   text += `${cripple(content)} by ${content.designer} over**\n`;
@@ -268,11 +271,11 @@ function discordBattleresults(content) {
   });
   text += '```\n';
   sendMessage(config.discord.channels.battle, text);
-}
+};
 
 /* Notifications */
 
-const discordNotification = async (userId, type, meta) => {
+export const discordNotification = async (userId, type, meta) => {
   let user;
   try {
     user = await client.users.fetch(userId);
@@ -332,16 +335,3 @@ client.on('message', async message => {
     });
   }
 });
-
-module.exports = {
-  discord,
-  sendMessage,
-  discordChatline,
-  discordBesttime,
-  discordBestmultitime,
-  discordBattlestart,
-  discordBattlequeue,
-  discordBattleEnd,
-  discordBattleresults,
-  discordNotification,
-};

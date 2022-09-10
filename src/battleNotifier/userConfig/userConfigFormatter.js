@@ -12,7 +12,7 @@ const formatValues = (values, separator, format = value => value) => {
   return cleanedValeus.map(value => format(value)).join(separator);
 };
 
-const areUserConfigListsEmpty = userConfig => {
+export const areUserConfigListsEmpty = userConfig => {
   return (
     userConfig.notifyList.length === 0 && userConfig.ignoreList.length === 0
   );
@@ -104,5 +104,4 @@ const userConfigFormatter = ({ keywords }) => {
   return { toString: userConfigToString };
 };
 
-module.exports = userConfigFormatter;
-module.exports.areUserConfigListsEmpty = areUserConfigListsEmpty;
+export default userConfigFormatter;

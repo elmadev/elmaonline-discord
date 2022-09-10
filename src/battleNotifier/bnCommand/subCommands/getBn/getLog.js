@@ -1,6 +1,6 @@
-const { format } = require('date-fns');
-const Discord = require('discord.js');
-const Logger = require('../../../../logger');
+import { format } from 'date-fns';
+import Discord from 'discord.js';
+import Logger from '../../../../logger';
 
 const getErrorMessage = input =>
   `Could not find a log for date: ${input}.\nPass in the date as an argument to \`!bn get log\` with the format 'yyyy-MM-dd'\nWithout any argument it will get today's log by default.`;
@@ -17,4 +17,4 @@ const getLog = async ({ user, date }) => {
   }
 };
 
-module.exports = getLog;
+export default getLog;

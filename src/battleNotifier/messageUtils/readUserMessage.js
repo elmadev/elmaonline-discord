@@ -1,7 +1,7 @@
 const replyMinutes = 5;
 const replyTimeout = replyMinutes * 60 * 1000;
 
-class TimeOutError extends Error {
+export class TimeOutError extends Error {
   constructor(message) {
     super(message);
     this.name = 'TimeOutError';
@@ -25,5 +25,4 @@ const readUserMessage = channel => async user => {
   }
 };
 
-module.exports = readUserMessage;
-module.exports.TimeOutError = TimeOutError;
+export default readUserMessage;

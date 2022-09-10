@@ -1,6 +1,6 @@
-const fs = require('fs');
-const { format } = require('date-fns');
-const { createFolder } = require('./fileUtils.js');
+import fs from 'fs';
+import { format } from 'date-fns';
+import { createFolder } from './fileUtils.js';
 
 let logger = null;
 logger =
@@ -34,4 +34,4 @@ logger =
     return { initialize, log, getFilePath };
   })();
 
-module.exports = logger;
+export default logger;

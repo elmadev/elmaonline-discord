@@ -1,4 +1,4 @@
-const { parseBattleVariations } = require('./battleVariations');
+import { parseBattleVariations } from './battleVariations';
 
 const spacesRegexp = / +/g;
 const moreThanOneSpaceRegexp = /\s\s+/g;
@@ -6,7 +6,7 @@ const commasRegexp = /,/g;
 const getLevelPatternsRegexp = suffix => new RegExp(`^.*${suffix}$`, 'gi');
 
 const onlyWordsRegExp = /^\w+$/;
-const isSimpleLevelPattern = string => onlyWordsRegExp.test(string);
+export const isSimpleLevelPattern = string => onlyWordsRegExp.test(string);
 
 const substringInBetween = (input, startChar, endChar) => {
   const startIndex = input.indexOf(startChar) + 1;
@@ -151,5 +151,4 @@ const userConfigParser = ({ bnBattleTypes, bnBattleAttributes, keywords }) => {
   return { parse: parseUserConfigLists, parseInputLine };
 };
 
-module.exports = userConfigParser;
-module.exports.isSimpleLevelPattern = isSimpleLevelPattern;
+export default userConfigParser;

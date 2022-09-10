@@ -19,13 +19,13 @@ const UserConfigList = list => {
   return list.map(item => UserConfigListItem(item));
 };
 
-const UserConfigLists = values => {
+export const UserConfigLists = values => {
   const notifyList = values.notifyList ? UserConfigList(values.notifyList) : [];
   const ignoreList = values.ignoreList ? UserConfigList(values.ignoreList) : [];
   return { notifyList, ignoreList };
 };
 
-const UserConfig = values => {
+export const UserConfig = values => {
   const createdAt = values.createdAt || '';
   const updatedAt = values.updatedAt || '';
   const isOn = values.isOn !== undefined ? values.isOn : true;
@@ -36,5 +36,3 @@ const UserConfig = values => {
   const username = values.username || '';
   return { createdAt, updatedAt, isOn, ...lists, username };
 };
-
-module.exports = { UserConfig, UserConfigLists };

@@ -1,4 +1,4 @@
-const Discord = require('discord.js');
+import Discord from 'discord.js';
 
 const getStore = async ({ user, store }) => {
   const embed = new Discord.MessageEmbed()
@@ -7,4 +7,4 @@ const getStore = async ({ user, store }) => {
   await user.send(embed);
 };
 
-module.exports = getStore;
+export default getStore;

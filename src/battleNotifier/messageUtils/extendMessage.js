@@ -1,5 +1,5 @@
-const { DMChannel, DiscordAPIError } = require('discord.js');
-const readUserMessage = require('./readUserMessage');
+import { DMChannel, DiscordAPIError } from 'discord.js';
+import readUserMessage from './readUserMessage';
 
 const sendUser = async ({ user, message, fallbackChannel }) => {
   let sendError = null;
@@ -60,4 +60,4 @@ const extendMessage = (message, fallbackChannel) => {
   };
 };
 
-module.exports = extendMessage;
+export default extendMessage;

@@ -1,1 +1,1 @@
-module.exports = require('./getBn');
+export { default as default } from './getBn';

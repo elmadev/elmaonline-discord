@@ -1,1 +1,1 @@
-module.exports = require('./bnCommand');
+export { default as default } from './bnCommand';

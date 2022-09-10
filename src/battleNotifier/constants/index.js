@@ -1,7 +1,2 @@
-const bnBattleTypes = require('./bnBattleTypes');
-const bnBattleAttributes = require('./bnBattleAttributes');
-
-module.exports = {
-  bnBattleTypes,
-  bnBattleAttributes,
-};
+export { bnBattleTypes } from './bnBattleTypes';
+export { bnBattleAttributes } from './bnBattleAttributes';

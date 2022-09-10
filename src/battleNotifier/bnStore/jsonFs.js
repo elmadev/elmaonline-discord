@@ -1,6 +1,6 @@
-const { readFile, writeFile } = require('../../fileUtils');
+import { readFile, writeFile } from '../../fileUtils';
 
-const readJsonFile = async path => {
+export const readJsonFile = async path => {
   let result = {};
   try {
     const fileHandle = await readFile(path);
@@ -12,11 +12,6 @@ const readJsonFile = async path => {
   return result;
 };
 
-const writeJsonFile = async (path, data) => {
+export const writeJsonFile = async (path, data) => {
   await writeFile(path, JSON.stringify(data));
-};
-
-module.exports = {
-  readJsonFile,
-  writeJsonFile,
 };

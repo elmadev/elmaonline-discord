@@ -1,9 +1,9 @@
-const userConfigParser = require('./userConfigParser');
-const userConfigFormatter = require('./userConfigFormatter');
-const { UserConfig, UserConfigLists } = require('./UserConfig');
-const { getBattleVariations } = require('./battleVariations');
+import userConfigParser from './userConfigParser';
+import userConfigFormatter from './userConfigFormatter';
+import { UserConfig, UserConfigLists } from './UserConfig';
+import { getBattleVariations } from './battleVariations';
 
-module.exports = {
+export default {
   parser: userConfigParser,
   formatter: userConfigFormatter,
   getBattleVariations,
@@ -12,3 +12,11 @@ module.exports = {
   UserConfig,
   UserConfigLists,
 };
+
+export { default as parser } from './userConfigParser';
+export { default as formatter } from './userConfigFormatter';
+export { getBattleVariations } from './battleVariations';
+export const areUserConfigListsEmpty =
+  userConfigFormatter.areUserConfigListsEmpty;
+export const isSimpleLevelPattern = userConfigParser.isSimpleLevelPattern;
+export { UserConfig, UserConfigLists } from './UserConfig';

@@ -1,10 +1,6 @@
-const { emojis, keywords, messages } = require('../config');
-const { bnBattleTypes, bnBattleAttributes } = require('../../constants');
-const {
-  parser,
-  formatter,
-  areUserConfigListsEmpty,
-} = require('../../userConfig');
+import { emojis, keywords, messages } from '../config';
+import { bnBattleTypes, bnBattleAttributes } from '../../constants';
+import { parser, formatter, areUserConfigListsEmpty } from '../../userConfig';
 
 const userConfigParser = parser({
   bnBattleTypes,
@@ -88,8 +84,7 @@ const setBn = async ({ message, store }) => {
   }
 };
 
-module.exports = setBn;
-module.exports.messages = {
+setBn.messages = {
   firstConfigMessage,
   notesMessage,
   yourConfigMessage,
@@ -97,3 +92,5 @@ module.exports.messages = {
   writeBnHelpMessage,
   editMessage,
 };
+
+export default setBn;

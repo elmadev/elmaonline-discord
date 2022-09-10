@@ -1,4 +1,4 @@
-const { messages } = require('../config');
+import { messages } from '../config';
 
 const rulesMessage = `Always write one line per rule, use \`!bn\` to set your notifications.
 
@@ -26,4 +26,4 @@ const rulesBn = async user => {
   await user.send(rulesMessage);
 };
 
-module.exports = rulesBn;
+export default rulesBn;

@@ -1,8 +1,9 @@
-const { battleMatchesUserConfig } = require('../../notifyBattle');
+import { battleMatchesUserConfig } from '../../notifyBattle';
 
-const { emojis, keywords, messages } = require('../config');
-const { bnBattleTypes, bnBattleAttributes } = require('../../constants');
-const userConfigParser = require('../../userConfig').parser({
+import { emojis, keywords, messages } from '../config';
+import { bnBattleTypes, bnBattleAttributes } from '../../constants';
+import userConfig from '../../userConfig';
+const userConfigParser = userConfig.parser({
   bnBattleTypes,
   bnBattleAttributes,
   keywords,
@@ -28,11 +29,8 @@ const runTest = async ({ message, user, userConfig }) => {
   const { channel } = await message.send(testBnMessage);
 
   const userMessage = await channel.readUserMessage(user);
-  const {
-    battleTypes,
-    designers,
-    levelPatterns,
-  } = userConfigParser.parseInputLine(userMessage.content);
+  const { battleTypes, designers, levelPatterns } =
+    userConfigParser.parseInputLine(userMessage.content);
 
   const battle = {
     battleType: battleTypes[0],
@@ -63,9 +61,10 @@ const testBn = async ({ message, store }) => {
   }
 };
 
-module.exports = testBn;
-module.exports.messages = {
+testBn.messages = {
   testBnMessage,
   incorrectTestMessage,
   testResultMessage,
 };
+
+export default testBn;

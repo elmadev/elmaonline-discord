@@ -1,8 +1,8 @@
-const { writeJsonFile, readJsonFile } = require('./jsonFs');
-const { createParentFolder } = require('../../fileUtils');
-const bnStore = require('./bnStore');
+import { writeJsonFile, readJsonFile } from './jsonFs';
+import { createParentFolder } from '../../fileUtils';
+import bnStore from './bnStore';
 
-module.exports = bnStore({
+export default bnStore({
   writeJsonFile,
   readJsonFile,
   createParentFolder,

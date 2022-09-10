@@ -1,4 +1,4 @@
-const bnBattleAttributes = [
+export const bnBattleAttributes = [
   { name: 'seeOthers', aliases: ['see others', 'show others'] },
   { name: 'seeTimes', aliases: ['see times', 'show times'] },
   { name: 'allowStarter', aliases: ['allow starter'] },
@@ -13,5 +13,3 @@ const bnBattleAttributes = [
   { name: 'oneWheel', aliases: ['one wheel', '1w', '1 wheel'] },
   { name: 'multi', aliases: [] },
 ];
-
-module.exports = bnBattleAttributes;

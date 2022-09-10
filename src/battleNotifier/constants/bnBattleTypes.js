@@ -1,4 +1,4 @@
-const bnBattleTypes = [
+export const bnBattleTypes = [
   { name: 'Normal', aliases: ['norm', 'nm'] },
   { name: 'First Finish', aliases: ['ff'] },
   { name: 'One Life', aliases: ['1 life', 'ol', '1l'] },
@@ -11,5 +11,3 @@ const bnBattleTypes = [
   { name: 'Finish Count', aliases: ['fc'] },
   { name: '1 Hour TT', aliases: ['1h', 'tt', 'ht', 'one hour tt'] },
 ];
-
-module.exports = bnBattleTypes;

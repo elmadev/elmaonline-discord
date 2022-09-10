@@ -1,5 +1,5 @@
-const logger = require('../../logger');
-const {
+import logger from '../../logger';
+import {
   setBn,
   getBn,
   toggleBn,
@@ -7,16 +7,16 @@ const {
   aliasBn,
   rulesBn,
   testBn,
-} = require('./subCommands');
-const { TimeOutError } = require('../messageUtils');
-const { emojis, messages } = require('./config');
+} from './subCommands';
+import { TimeOutError } from '../messageUtils';
+import { emojis, messages } from './config';
 
 const noCommandFound = async message => {
   await message.react(emojis.notFound);
   await message.channel.send(messages.seeAvailableCommands);
 };
 
-module.exports = {
+export default {
   name: 'bn',
   execute: async ({ message, args, store }) => {
     const user = message.author;

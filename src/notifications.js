@@ -1,4 +1,4 @@
-function notifMessage(type, meta, url) {
+const notifMessage = (type, meta, url) => {
   let text = '';
   if (type === 'comment') {
     text = `${meta.kuski} added a comment to your replay: "${
@@ -17,6 +17,6 @@ function notifMessage(type, meta, url) {
     text = `${text}] ${meta.kuski} got record in level ${meta.level} with time ${meta.time} <${url}levels/${meta.levelIndex}>`;
   }
   return text;
-}
+};
 
-module.exports = notifMessage;
+export default notifMessage;

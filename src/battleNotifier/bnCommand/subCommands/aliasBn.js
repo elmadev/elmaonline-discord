@@ -1,5 +1,5 @@
-const { bnBattleTypes, bnBattleAttributes } = require('../../constants');
-const { getBattleVariations } = require('../../userConfig');
+import { bnBattleTypes, bnBattleAttributes } from '../../constants';
+import { getBattleVariations } from '../../userConfig';
 
 const codeBlock = code => `\`\`\`${code}\`\`\``;
 
@@ -19,4 +19,4 @@ const aliasBn = async user => {
   );
 };
 
-module.exports = aliasBn;
+export default aliasBn;

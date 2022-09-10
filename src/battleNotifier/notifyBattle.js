@@ -1,4 +1,4 @@
-const { UserConfig, isSimpleLevelPattern } = require('./userConfig');
+import { UserConfig, isSimpleLevelPattern } from './userConfig';
 
 const matchesValue = (array, value) => {
   const matchValue = value && value.toLowerCase();
@@ -68,11 +68,11 @@ const battleMatchesConfigItem = (battle, configItem) => {
 const battleMatchesConfigList = (battle, configList) =>
   configList.some(configItem => battleMatchesConfigItem(battle, configItem));
 
-const battleMatchesUserConfig = (battle, userConfig) =>
+export const battleMatchesUserConfig = (battle, userConfig) =>
   battleMatchesConfigList(battle, userConfig.notifyList) &&
   !battleMatchesConfigList(battle, userConfig.ignoreList);
 
-const getSubscribedUserIds = async ({ battle, store }) => {
+export const getSubscribedUserIds = async ({ battle, store }) => {
   const userConfigsById = await store.getAll();
   const storedConfigs = Object.entries(userConfigsById);
 
@@ -85,5 +85,3 @@ const getSubscribedUserIds = async ({ battle, store }) => {
 
   return userIds;
 };
-
-module.exports = { getSubscribedUserIds, battleMatchesUserConfig };

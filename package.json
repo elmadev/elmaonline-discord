@@ -5,11 +5,17 @@
   "packageManager": "yarn@3.2.3",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon",
+    "start": "nodemon --es-module-specifier-resolution=node --no-warnings",
     "lint": "eslint --ignore-path .gitignore --ignore-pattern \"!**/.*\" ."
   },
   "dependencies": {
-    "express": "^4.18.1"
+    "add": "^2.0.6",
+    "bbcode-to-markdown": "^1.0.3",
+    "date-fns": "^2.29.2",
+    "discord.js": "12.3.1",
+    "express": "^4.18.1",
+    "lodash-es": "^4.17.21",
+    "yarn": "^1.22.19"
   },
   "devDependencies": {
     "eslint": "latest",

@@ -1,9 +1,9 @@
-const { DiscordAPIError } = require('discord.js');
-const createBnStore = require('./bnStore');
-const bnCommand = require('./bnCommand');
-const { getSubscribedUserIds } = require('./notifyBattle');
-const { extendMessage } = require('./messageUtils');
-const logger = require('../logger');
+import { DiscordAPIError } from 'discord.js';
+import createBnStore from './bnStore';
+import bnCommand from './bnCommand';
+import { getSubscribedUserIds } from './notifyBattle';
+import { extendMessage } from './messageUtils';
+import logger from '../logger';
 
 const logNotifyUserError = error => {
   logger.log({
@@ -60,4 +60,4 @@ const battleNotifier = ({ bnStorePath, client, fallbackChannelId }) => {
   };
 };
 
-module.exports = battleNotifier;
+export default battleNotifier;

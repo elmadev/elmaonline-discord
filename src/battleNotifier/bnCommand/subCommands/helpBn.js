@@ -16,4 +16,4 @@ const helpBn = async user => {
   await user.send(helpMessage);
 };
 
-module.exports = helpBn;
+export default helpBn;

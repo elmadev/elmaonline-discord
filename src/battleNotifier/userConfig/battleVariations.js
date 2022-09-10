@@ -1,6 +1,6 @@
 const spacesRegexp = / +/g;
 
-const getBattleVariations = bnBattleProperty => {
+export const getBattleVariations = bnBattleProperty => {
   const typeName = bnBattleProperty.name.toLowerCase();
   const typeNameVariations = [typeName, ...bnBattleProperty.aliases];
   typeNameVariations.forEach(variation => {
@@ -15,7 +15,7 @@ const getBattleVariations = bnBattleProperty => {
   return typeNameVariations;
 };
 
-const parseBattleVariations = (input, bnProperties) => {
+export const parseBattleVariations = (input, bnProperties) => {
   const lowerCaseInput = input ? input.toLowerCase() : '';
   return bnProperties.reduce((acc, property) => {
     const nameVariations = getBattleVariations(property);
@@ -25,5 +25,3 @@ const parseBattleVariations = (input, bnProperties) => {
     return hasProperty ? [...acc, property.name] : acc;
   }, []);
 };
-
-module.exports = { parseBattleVariations, getBattleVariations };

@@ -1,5 +1,6 @@
-const { keywords, messages } = require('../../config');
-const userConfigFormatter = require('../../../userConfig').formatter({
+import { keywords, messages } from '../../config';
+import userConfig from '../../../userConfig';
+const userConfigFormatter = userConfig.formatter({
   keywords,
 });
 
@@ -35,7 +36,8 @@ const getUserConfig = async ({ user, store }) => {
   await user.send(response);
 };
 
-module.exports = getUserConfig;
-module.exports.messages = {
+getUserConfig.messages = {
   yourConfigMessage,
 };
+
+export default getUserConfig;

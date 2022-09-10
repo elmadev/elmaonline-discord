@@ -1,7 +1,7 @@
-const { bnAdminIds } = require('../../config');
-const getUserConfig = require('./getUserConfig');
-const getStore = require('./getStore');
-const getLog = require('./getLog');
+import { bnAdminIds } from '../../config';
+import getUserConfig from './getUserConfig';
+import getStore from './getStore';
+import getLog from './getLog';
 
 const getBn = async ({ user, store, args }) => {
   const isBnAdmin = bnAdminIds.includes(user.id);
@@ -16,4 +16,4 @@ const getBn = async ({ user, store, args }) => {
   }
 };
 
-module.exports = getBn;
+export default getBn;

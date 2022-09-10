@@ -1,1 +1,1 @@
-module.exports = require('./discord');
+import './discord';
