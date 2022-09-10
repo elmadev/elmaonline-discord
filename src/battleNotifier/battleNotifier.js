@@ -39,7 +39,10 @@ const battleNotifier = ({ bnStorePath, client, fallbackChannelId }) => {
     if (dmBlockedUserIds.length > 0) {
       const userMentions = dmBlockedUserIds.join(' ');
       const fallbackMessage = `${message}\n${userMentions}`;
-      await getFallbackChannel().send(fallbackMessage);
+      const fallbackChannel = getFallbackChannel();
+      if (fallbackChannel) {
+        await fallbackChannel.send(fallbackMessage);
+      }
     }
   };
 

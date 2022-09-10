@@ -16,7 +16,6 @@ export default {
 export { default as parser } from './userConfigParser';
 export { default as formatter } from './userConfigFormatter';
 export { getBattleVariations } from './battleVariations';
-export const areUserConfigListsEmpty =
-  userConfigFormatter.areUserConfigListsEmpty;
-export const isSimpleLevelPattern = userConfigParser.isSimpleLevelPattern;
+export { areUserConfigListsEmpty } from './userConfigFormatter';
+export { isSimpleLevelPattern } from './userConfigParser';
 export { UserConfig, UserConfigLists } from './UserConfig';

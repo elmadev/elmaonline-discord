@@ -2,7 +2,9 @@
 // default config, this file should not be changed unless you are adding a new key
 export default {
   // Node.js app
-  port: process.env.PORT || 3003,
+  port: process.env.PORT || 3007,
+
+  auth: '7dae1a74-6c29-4f0e-82f6-c941c178b0b6',
 
   // Discord, with no token it will not attempt to connect
   // to test locally create own server and bot
@@ -17,7 +19,6 @@ export default {
       events: '',
       admin: '',
     },
-    apiAuth: '',
     url: 'https://test.elma.online/',
     icons: {
       started: '',

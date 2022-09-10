@@ -161,10 +161,7 @@ const extraRules = content => {
 };
 
 export const discordChatline = content => {
-  const ts = format(content.timestamp, 'HH:mm:ss');
-  /* const ts = moment(content.timestamp, 'YYYY-MM-DD HH:mm:ss UTC').format(
-    'HH:mm:ss',
-  ); */
+  const ts = format(new Date(content.timestamp), 'HH:mm:ss');
   sendMessage(
     config.discord.channels.battle,
     `[${ts}] (${content.kuski}): ${content.chatline}`,
