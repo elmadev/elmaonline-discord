@@ -1,0 +1,21 @@
+{
+  "name": "nodejs-express-api-starter-kit",
+  "type": "module",
+  "private": true,
+  "packageManager": "yarn@3.2.3",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon",
+    "lint": "eslint --ignore-path .gitignore --ignore-pattern \"!**/.*\" ."
+  },
+  "dependencies": {
+    "express": "^4.18.1"
+  },
+  "devDependencies": {
+    "eslint": "latest",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "nodemon": "^2.0.19",
+    "prettier": "2.7.1"
+  }
+}
