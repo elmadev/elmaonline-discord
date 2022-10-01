@@ -4,6 +4,7 @@ export default {
   // Node.js app
   port: process.env.PORT || 3007,
 
+  // Authorization header checked in incoming api calls
   auth: '7dae1a74-6c29-4f0e-82f6-c941c178b0b6',
 
   // Discord, with no token it will not attempt to connect
