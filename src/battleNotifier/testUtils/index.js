@@ -1,6 +1,4 @@
-const mocks = require('./mocks');
-const userConfigsExample1 = require('./userConfigsExample1');
-const userConfigs = require('./userConfigs');
-const assertions = require('./assertions');
-
-module.exports = { ...mocks, userConfigs, userConfigsExample1, ...assertions };
+export * from './mocks';
+export { default as userConfigsExample1 } from './userConfigsExample1';
+export { default as userConfigs } from './userConfigs';
+export * from './assertions';

@@ -1,6 +1,6 @@
-const { keywords } = require('../../bnCommand/config');
-const { formatter, UserConfigLists } = require('../../userConfig');
-const { userConfigs } = require('../../testUtils');
+import { keywords } from '../../bnCommand/config';
+import { formatter, UserConfigLists } from '../../userConfig';
+import userConfigs from '../../testUtils/userConfigs';
 
 const userConfigFormatter = formatter({ keywords });
 

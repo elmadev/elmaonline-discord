@@ -1,16 +1,13 @@
-const firstResult = jestFn => jestFn.mock.results[0].value;
+import { expect } from 'vitest';
 
-const expectAsyncResult = async (jestFn, expected) => {
-  const actual = firstResult(jestFn);
-  await expect(actual).resolves.toEqual(expected);
+export const firstResult = mockFn => mockFn.mock.results[0].value;
+
+export const expectAsyncResult = async (mockFn, expected) => {
+  const actual = firstResult(mockFn);
+  await expect(actual).toEqual(expected);
 };
 
-const expectAsyncResultProperty = async (jestFn, property, expected) => {
-  const actual = firstResult(jestFn);
-  await expect(actual).resolves.toHaveProperty(property, expected);
-};
-
-module.exports = {
-  expectAsyncResult,
-  expectAsyncResultProperty,
+export const expectAsyncResultProperty = async (mockFn, property, expected) => {
+  const actual = firstResult(mockFn);
+  await expect(actual).toHaveProperty(property, expected);
 };

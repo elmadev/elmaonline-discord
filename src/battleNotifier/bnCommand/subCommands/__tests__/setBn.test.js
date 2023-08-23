@@ -1,7 +1,7 @@
-const setBn = require('../setBn');
-const { emojis } = require('../../config');
-const { UserConfigLists } = require('../../../userConfig');
-const {
+import setBn from '../setBn';
+import { emojis } from '../../config';
+import { UserConfigLists } from '../../../userConfig';
+import {
   mockStore,
   mockUser,
   mockMessage,
@@ -9,7 +9,7 @@ const {
   userConfigsExample1,
   expectAsyncResult,
   expectAsyncResultProperty,
-} = require('../../../testUtils');
+} from '../../../testUtils';
 
 const {
   editMessage,
@@ -90,7 +90,6 @@ describe('user sets notifications for first time', () => {
       ...UserConfigLists({
         notifyList: [{ battleTypes: ['First Finish'], designers: ['Markku'] }],
       }),
-      username: 'NewUser',
     });
 
     /** Expect bot to reply with newly created user config */
@@ -106,7 +105,7 @@ describe('user sets notifications for first time', () => {
 });
 
 describe('user edits his current notifications', () => {
-  test('bot replies with current config and user sets new successfuly', async () => {
+  test('bot replies with current config and user sets new successfully', async () => {
     const author = mockUser('1', 'Kopaka');
     const userReply = mockMessage({ content: 'ff by Markku' });
     const channel = mockChannel({ userReply });
@@ -138,7 +137,6 @@ describe('user edits his current notifications', () => {
       ...UserConfigLists({
         notifyList: [{ battleTypes: ['First Finish'], designers: ['Markku'] }],
       }),
-      username: 'Kopaka',
     });
 
     /** Expect bot to reply with newly created user config */

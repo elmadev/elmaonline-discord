@@ -4,7 +4,7 @@ const toggleBn = async ({ message, store, isOn }) => {
   const user = message.author;
   const userConfig = await store.get(user.id);
   if (userConfig) {
-    await store.set(user.id, { isOn });
+    await store.toggleIsOn(user.id, isOn);
     await message.author.send(
       `Your notifications are now ${isOn ? 'ON' : 'OFF'}`,
     );

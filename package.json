@@ -6,10 +6,12 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon --es-module-specifier-resolution=node --no-warnings",
-    "lint": "eslint --ignore-path .gitignore --ignore-pattern \"!**/.*\" ."
+    "lint": "eslint --ignore-path .gitignore --ignore-pattern \"!**/.*\" .",
+    "test": "vitest"
   },
   "dependencies": {
     "add": "^2.0.6",
+    "apisauce": "^3.0.1",
     "bbcode-to-markdown": "^1.0.3",
     "body-parser": "^1.20.0",
     "cors": "^2.8.5",
@@ -24,6 +26,7 @@
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
     "nodemon": "^2.0.19",
-    "prettier": "2.7.1"
+    "prettier": "2.7.1",
+    "vitest": "^0.32.2"
   }
 }

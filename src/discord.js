@@ -10,10 +10,13 @@ import notifMessage from './notifications';
 const client = new Discord.Client();
 
 const isProdEnv = process.env.NODE_ENV === 'production';
-const { storePath, logsPath, fallbackChannelId } = config.discord.bn;
+const { serverApiUrl, logsPath, fallbackChannelId } = config.discord.bn;
 
-const bnStorePath = isProdEnv ? storePath : './bn/bn.store.json';
-const battleNotifier = createBN({ bnStorePath, client, fallbackChannelId });
+const battleNotifier = createBN({
+  apiUrl: serverApiUrl,
+  client,
+  fallbackChannelId,
+});
 
 const bnLogsPath = isProdEnv ? logsPath : './bn/';
 logger.initialize(bnLogsPath);

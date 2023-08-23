@@ -29,7 +29,8 @@ export default {
     },
     prefix: '!',
     bn: {
-      storePath: '../bn/bn.store.json',
+      serverApiUrl: 'https://test.elma.online/api/player/bn/',
+      serverApiAuth: 'e5f13420-cf17-4fd5-8cc9-c96959d1048f',
       logsPath: '../bn/logs/',
       fallbackChannelId: '219884674330132480',
     },

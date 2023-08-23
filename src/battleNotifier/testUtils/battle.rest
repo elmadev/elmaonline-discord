@@ -1,0 +1,15 @@
+# Can use extension "REST Client" in VSCode to test the API calls
+# for battle notifications
+POST http://localhost:3007/gameevent
+Content-Type: application/json
+Authorization: 7dae1a74-6c29-4f0e-82f6-c941c178b0b6
+
+{
+  "event": "API_battlestart",
+  "battleType": "Normal",
+  "level": "Pob001",
+  "designer": "Pab",
+  "durationMinutes": 60,
+  "extraRules": "",
+  "battleIndex": 1
+}

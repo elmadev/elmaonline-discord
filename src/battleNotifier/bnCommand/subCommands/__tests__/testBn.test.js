@@ -1,6 +1,6 @@
-const testBn = require('../testBn');
-const { messages, emojis } = require('../../config');
-const {
+import testBn from '../testBn';
+import { messages, emojis } from '../../config';
+import {
   mockMessage,
   mockStore,
   mockChannel,
@@ -8,13 +8,10 @@ const {
   userConfigsExample1,
   expectAsyncResult,
   expectAsyncResultProperty,
-} = require('../../../testUtils');
+} from '../../../testUtils';
 
-const {
-  testBnMessage,
-  incorrectTestMessage,
-  testResultMessage,
-} = testBn.messages;
+const { testBnMessage, incorrectTestMessage, testResultMessage } =
+  testBn.messages;
 
 let store;
 
@@ -124,27 +121,110 @@ describe('user with config and good input', () => {
     expect(userReply.react).toHaveBeenCalledWith(emojis.ok);
   };
 
+  // TODO: multiple tests fail because of the some reason, fix it
+
   test('battle type and designer matches user config', async () => {
-    runTestAssertions({
-      userId: '1',
-      userReplyContent: 'First Finish by Sla',
-      testMessage: 'First Finish battle started by Sla',
-    });
+    const userId = '1';
+    const userReplyContent = 'First Finish by Sla';
+    const testMessage = 'First Finish battle started by Sla';
+    const matches = true;
+
+    const author = mockUser(userId);
+    const userReply = mockMessage({ content: userReplyContent });
+    const channel = mockChannel({ userReply });
+    const message = mockMessage({ author, channel });
+
+    await testBn({ message, store });
+
+    /** Expect store get to find user config */
+    expect(store.get).toHaveBeenCalledTimes(1);
+    expect(store.get).toHaveBeenCalledWith(userId);
+    await expectAsyncResult(store.get, userConfigsExample1[userId]);
+
+    /** Expect bot to redirect to channel with message */
+    expect(message.send).toHaveBeenCalledTimes(1);
+    expect(message.send).toHaveBeenCalledWith(testBnMessage);
+    await expectAsyncResultProperty(message.send, 'channel', channel);
+
+    /** Expect user to reply with test */
+    expect(channel.readUserMessage).toHaveBeenCalledTimes(1);
+    expect(channel.readUserMessage).toHaveBeenCalledWith(author);
+    await expectAsyncResult(channel.readUserMessage, userReply);
+
+    expect(channel.send).toHaveBeenCalledTimes(2);
+    expect(channel.send).toHaveBeenNthCalledWith(1, `Test: ${testMessage}`);
+    expect(channel.send).toHaveBeenNthCalledWith(2, testResultMessage(matches));
+    expect(userReply.react).toHaveBeenCalledTimes(1);
+    expect(userReply.react).toHaveBeenCalledWith(emojis.ok);
   });
 
   test('level name and designer matches user config', async () => {
-    runTestAssertions({
-      userId: '6',
-      userReplyContent: 'JoPi50.lev by John',
-      testMessage: 'JoPi50 battle started by John',
-    });
+    const userId = '6';
+    const userReplyContent = 'JoPi50.lev by John';
+    const testMessage = 'JoPi50 battle started by John';
+    const matches = true;
+
+    const author = mockUser(userId);
+    const userReply = mockMessage({ content: userReplyContent });
+    const channel = mockChannel({ userReply });
+    const message = mockMessage({ author, channel });
+
+    await testBn({ message, store });
+
+    /** Expect store get to find user config */
+    expect(store.get).toHaveBeenCalledTimes(1);
+    expect(store.get).toHaveBeenCalledWith(userId);
+    await expectAsyncResult(store.get, userConfigsExample1[userId]);
+
+    /** Expect bot to redirect to channel with message */
+    expect(message.send).toHaveBeenCalledTimes(1);
+    expect(message.send).toHaveBeenCalledWith(testBnMessage);
+    await expectAsyncResultProperty(message.send, 'channel', channel);
+
+    /** Expect user to reply with test */
+    expect(channel.readUserMessage).toHaveBeenCalledTimes(1);
+    expect(channel.readUserMessage).toHaveBeenCalledWith(author);
+    await expectAsyncResult(channel.readUserMessage, userReply);
+
+    expect(channel.send).toHaveBeenCalledTimes(2);
+    expect(channel.send).toHaveBeenNthCalledWith(1, `Test: ${testMessage}`);
+    expect(channel.send).toHaveBeenNthCalledWith(2, testResultMessage(matches));
+    expect(userReply.react).toHaveBeenCalledTimes(1);
+    expect(userReply.react).toHaveBeenCalledWith(emojis.ok);
   });
 
   test('level name, battleType and designer matches user config', async () => {
-    runTestAssertions({
-      userId: '6',
-      userReplyContent: 'Normal JoPi50.lev by John',
-      testMessage: 'JoPi50 Normal battle started by John',
-    });
+    const userId = '6';
+    const userReplyContent = 'Normal JoPi50.lev by John';
+    const testMessage = 'JoPi50 Normal battle started by John';
+    const matches = true;
+
+    const author = mockUser(userId);
+    const userReply = mockMessage({ content: userReplyContent });
+    const channel = mockChannel({ userReply });
+    const message = mockMessage({ author, channel });
+
+    await testBn({ message, store });
+
+    /** Expect store get to find user config */
+    expect(store.get).toHaveBeenCalledTimes(1);
+    expect(store.get).toHaveBeenCalledWith(userId);
+    await expectAsyncResult(store.get, userConfigsExample1[userId]);
+
+    /** Expect bot to redirect to channel with message */
+    expect(message.send).toHaveBeenCalledTimes(1);
+    expect(message.send).toHaveBeenCalledWith(testBnMessage);
+    await expectAsyncResultProperty(message.send, 'channel', channel);
+
+    /** Expect user to reply with test */
+    expect(channel.readUserMessage).toHaveBeenCalledTimes(1);
+    expect(channel.readUserMessage).toHaveBeenCalledWith(author);
+    await expectAsyncResult(channel.readUserMessage, userReply);
+
+    expect(channel.send).toHaveBeenCalledTimes(2);
+    expect(channel.send).toHaveBeenNthCalledWith(1, `Test: ${testMessage}`);
+    expect(channel.send).toHaveBeenNthCalledWith(2, testResultMessage(matches));
+    expect(userReply.react).toHaveBeenCalledTimes(1);
+    expect(userReply.react).toHaveBeenCalledWith(emojis.ok);
   });
 });

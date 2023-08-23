@@ -1,95 +1,116 @@
-const bnStore = require('../bnStore');
-const { userConfigsExample1: exampleConfigs } = require('../../testUtils');
-const { UserConfig } = require('../../userConfig');
+import { describe, vi } from 'vitest';
+
+import bnStore from '../bnStore';
+import { userConfigsExample1 as exampleConfigs } from '../../testUtils';
+import { mockServerApi } from '../../testUtils';
+import { bnKuskiToUserConfig, userConfigToBnKuski } from '../bnModelUtils';
 
 let store;
-let writeJsonFile;
-let readJsonFile;
-let createParentFolder;
-let dateNow;
-const testPath = 'path/to/storeFile';
-const mockStore = () =>
-  bnStore({ writeJsonFile, readJsonFile, createParentFolder, dateNow })(
-    testPath,
-  );
-
-const createdAtTestDate = '2020-09-15T16:49:59.977Z';
-const updatedAtTest = '2020-10-10T12:34:56.789z';
+let api;
+const testUrl = 'player/bn/';
+const mockBnStore = () => bnStore({ api })(testUrl);
 
 beforeEach(() => {
-  writeJsonFile = jest.fn(() => Promise.resolve());
-  createParentFolder = jest.fn(() => Promise.resolve());
+  api = mockServerApi();
 });
 
 describe('tests without a config file created yet', () => {
   beforeEach(() => {
-    readJsonFile = jest.fn(() => Promise.resolve({}));
-    dateNow = jest.fn(() => createdAtTestDate);
-    store = mockStore();
+    api.get.mockResolvedValue({ data: {} });
+    store = mockBnStore();
   });
 
-  test('get user config returns undefined', async () => {
+  test('get user config returns empty', async () => {
     const actual = await store.get('1');
-    expect(actual).toBeUndefined();
+    expect(actual).toEqual({ isOn: false, notifyList: [], ignoreList: [] });
   });
 
   test('set user config success', async () => {
     const userConfig = exampleConfigs['1'];
     await store.set('1', userConfig);
 
-    const expectedConfig = {
-      '1': {
-        createdAt: createdAtTestDate,
-        ...userConfig,
-      },
-    };
-    expect(writeJsonFile).toBeCalledWith(testPath, expectedConfig);
+    const expectedConfig = userConfigToBnKuski(userConfig);
+    expect(api.post).toBeCalledWith(`${testUrl}1`, expectedConfig);
+  });
+});
+
+describe('toggle on/off', () => {
+  beforeEach(() => {
+    store = mockBnStore();
+  });
+
+  test('toggle off', async () => {
+    await store.toggleIsOn('1', false);
+    expect(api.post).toBeCalledWith(`${testUrl}1/toggle/0`);
+  });
+
+  test('toggle on', async () => {
+    await store.toggleIsOn('1', true);
+    expect(api.post).toBeCalledWith(`${testUrl}1/toggle/1`);
+  });
+});
+
+describe('is user linked', () => {
+  beforeEach(() => {
+    store = mockBnStore();
+  });
+
+  test('user is linked', async () => {
+    api.get.mockResolvedValueOnce({ data: {} });
+    const actual = await store.isUserLinked('1');
+    expect(actual).toBe(true);
+  });
+
+  test('user is not linked', async () => {
+    api.get.mockResolvedValueOnce({ data: null });
+    const actual = await store.isUserLinked('1');
+    expect(actual).toBe(false);
   });
 });
 
 describe('tests with a config file already created', () => {
   describe('test get user config', () => {
     beforeEach(() => {
-      readJsonFile = jest.fn(() => Promise.resolve(exampleConfigs));
-      store = mockStore();
+      store = mockBnStore();
     });
 
     test('get user config from user', async () => {
+      api.get.mockResolvedValueOnce({
+        data: userConfigToBnKuski(exampleConfigs['1']),
+      });
       const actual = await store.get('1');
       expect(actual).toEqual(exampleConfigs['1']);
     });
 
     test('get all configs', async () => {
-      const result = await store.getAll();
-      expect(result).toEqual(exampleConfigs);
+      const data = [];
+      Object.keys(exampleConfigs).forEach(key => {
+        data.push({
+          DiscordId: key,
+          ...userConfigToBnKuski(exampleConfigs[key]),
+        });
+      });
+      api.get.mockResolvedValueOnce({ data });
+      const result = await store.getAllActive();
+      expect(result).toEqual(data.map(user => bnKuskiToUserConfig(user)));
     });
   });
 
   describe('set new user config', () => {
     beforeEach(() => {
-      readJsonFile = jest.fn(() => Promise.resolve(exampleConfigs));
-      dateNow = jest.fn(() => createdAtTestDate);
-      store = mockStore();
+      store = mockBnStore();
     });
 
     test('with no values', async () => {
       const newConfig = {};
       await store.set('100', newConfig);
 
-      const expectedArg = {
-        ...exampleConfigs,
-        '100': UserConfig({
-          isOn: true,
-          createdAt: createdAtTestDate,
-          updatedAt: createdAtTestDate,
-        }),
-      };
-      expect(writeJsonFile).toHaveBeenLastCalledWith(testPath, expectedArg);
+      const expectedArg = { BnEnabled: 0, BnKuskiRules: [] };
+      expect(api.post).toHaveBeenLastCalledWith(`${testUrl}100`, expectedArg);
     });
 
     test('set new config with values', async () => {
       const newConfig = {
-        userName: 'Spef',
         notifyList: [
           {
             battleTypes: ['Speed', 'Finish Count'],
@@ -99,82 +120,10 @@ describe('tests with a config file already created', () => {
       };
       await store.set('100', newConfig);
 
-      const expectedArg = {
-        ...exampleConfigs,
-        '100': UserConfig({
-          ...newConfig,
-          isOn: true,
-          createdAt: createdAtTestDate,
-          updatedAt: createdAtTestDate,
-        }),
-      };
-      expect(writeJsonFile).toHaveBeenLastCalledWith(testPath, expectedArg);
-    });
-  });
-
-  describe('update existing user config', () => {
-    beforeEach(() => {
-      readJsonFile = jest.fn(() => Promise.resolve(exampleConfigs));
-      dateNow = jest.fn(() => updatedAtTest);
-      store = mockStore();
-    });
-
-    test('without createdAt sets createdAt from updatedAt', async () => {
-      const testStore = {
-        '1': { ...exampleConfigs['1'], createdAt: undefined },
-      };
-      delete testStore['1'].createdAt;
-
-      readJsonFile = jest.fn(() => Promise.resolve(testStore));
-      store = mockStore();
-      await store.set('1', {});
-
-      const expectedArg = {
-        '1': UserConfig({
-          ...exampleConfigs['1'],
-          updatedAt: updatedAtTest,
-          createdAt: updatedAtTest,
-        }),
-      };
-      expect(writeJsonFile).toHaveBeenLastCalledWith(testPath, expectedArg);
-    });
-
-    test("with new values doesn't override other current values", async () => {
-      const newValues = {
-        notifyList: [{ battleTypes: 'First Finish', designers: 'Sla' }],
-      };
-      await store.set('1', newValues);
-
-      const expectedArg = {
-        ...exampleConfigs,
-        '1': UserConfig({
-          ...exampleConfigs['1'],
-          ...newValues,
-          updatedAt: updatedAtTest,
-          createdAt: '2020-09-11T20:43:03.537Z',
-        }),
-      };
-      expect(writeJsonFile).toHaveBeenLastCalledWith(testPath, expectedArg);
-    });
-
-    test('with updated values, overrides current values', async () => {
-      const newValues = {
-        username: 'Pab',
-        createdAt: '2019-08-01T21:00:00.123Z',
-        updatedAt: '2020-08-01T21:00:00.123Z',
-        isOn: false,
-        notifyList: [],
-        ignoreList: [{ battleTypes: ['First Finish'], designers: [] }],
-      };
-      await store.set('1', newValues);
-
-      const expectedArg = {
-        ...exampleConfigs,
-        '1': UserConfig({
-          ...newValues,
-        }),
-      };
-      expect(writeJsonFile).toHaveBeenLastCalledWith(testPath, expectedArg);
+      const expectedArg = userConfigToBnKuski({
+        notifyList: newConfig.notifyList,
+      });
+      expect(api.post).toHaveBeenLastCalledWith(`${testUrl}100`, expectedArg);
     });
   });
 });

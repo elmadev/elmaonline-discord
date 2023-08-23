@@ -1,20 +1,17 @@
-const { UserConfig, UserConfigLists } = require('../UserConfig');
+import { UserConfig, UserConfigLists } from '../UserConfig';
 
 describe('test user config', () => {
   test('empty object returns empty config', () => {
     const actual = UserConfig({});
     const expected = {
-      createdAt: '',
-      updatedAt: '',
-      isOn: true,
-      username: '',
+      isOn: false,
       notifyList: [],
       ignoreList: [],
     };
     expect(actual).toEqual(expected);
   });
 
-  test('filled object reutsn filled config', () => {
+  test('filled object returns filled config', () => {
     const values = {
       battleAttributes: ['seeOthers', 'allowStarter'],
       battleTypes: ['Normal', 'First Finish'],
@@ -24,18 +21,12 @@ describe('test user config', () => {
       minDuration: 50,
     };
     const actual = UserConfig({
-      createdAt: '2020-09-15T16:49:59.977Z',
-      updatedAt: '2020-09-15T16:52:33.354Z',
       isOn: true,
-      username: 'Pab',
       notifyList: [values],
       ignoreList: [values],
     });
     const expected = {
-      createdAt: '2020-09-15T16:49:59.977Z',
-      updatedAt: '2020-09-15T16:52:33.354Z',
       isOn: true,
-      username: 'Pab',
       notifyList: [values],
       ignoreList: [values],
     };

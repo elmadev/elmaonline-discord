@@ -1,3 +1,3 @@
-const { discord } = require('./discord');
+import { discord } from './discord';
 
 discord();

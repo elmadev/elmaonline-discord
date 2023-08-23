@@ -1,6 +1,11 @@
 import { emojis, keywords, messages } from '../config';
 import { bnBattleTypes, bnBattleAttributes } from '../../constants';
-import { parser, formatter, areUserConfigListsEmpty } from '../../userConfig';
+import {
+  parser,
+  formatter,
+  isUserConfigEmpty,
+  areUserConfigListsEmpty,
+} from '../../userConfig';
 
 const userConfigParser = parser({
   bnBattleTypes,
@@ -56,7 +61,7 @@ const setConfigErrorMessage =
 
 const sendRequestMessage = async ({ message, store }) => {
   const currentConfig = await store.get(message.author.id);
-  const redirectMessage = currentConfig
+  const redirectMessage = !isUserConfigEmpty(currentConfig)
     ? getEditMessage(currentConfig)
     : firstConfigMessage;
   return message.send(redirectMessage);
@@ -72,7 +77,6 @@ const setBn = async ({ message, store }) => {
   if (!areUserConfigListsEmpty(userConfigLists)) {
     const userConfigValues = {
       ...userConfigLists,
-      username: user.username,
     };
     await store.set(user.id, userConfigValues);
 

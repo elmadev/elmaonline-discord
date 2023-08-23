@@ -1,10 +1,15 @@
-import Discord from 'discord.js';
+import { messages } from '../../config';
 
 const getStore = async ({ user, store }) => {
-  const embed = new Discord.MessageEmbed()
-    .setTitle(`Current user notifications file`)
-    .attachFiles([store.path]);
-  await user.send(embed);
+  let response = '';
+  try {
+    const userConfig = await store.getAllActive();
+    response = JSON.stringify(userConfig, null, 2);
+  } catch (error) {
+    response = messages.configNotFound;
+  }
+
+  await user.send(response);
 };
 
 export default getStore;
