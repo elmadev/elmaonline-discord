@@ -1,4 +1,4 @@
-import { UserConfig, isSimpleLevelPattern } from './userConfig';
+import { isSimpleLevelPattern } from './userConfig';
 
 const matchesValue = (array, value) => {
   const matchValue = value && value.toLowerCase();
@@ -34,8 +34,8 @@ const matchesDurationRange = (
   durationMinutes,
 ) => {
   const matchesMin = minDuration === 0 || durationMinutes >= minDuration;
-  const macthesMax = maxDuration === 0 || durationMinutes <= maxDuration;
-  return matchesMin && macthesMax;
+  const matchesMax = maxDuration === 0 || durationMinutes <= maxDuration;
+  return matchesMin && matchesMax;
 };
 
 const battleMatchesConfigItem = (battle, configItem) => {
@@ -47,9 +47,9 @@ const battleMatchesConfigItem = (battle, configItem) => {
     ...duration
   } = configItem;
 
-  const matchesLevel = matchesLevelPatterns(levelPatterns, battle.level);
-  const matchesDesigner = matchesValue(designers, battle.designer);
   const matchesBattleType = matchesValue(battleTypes, battle.battleType);
+  const matchesDesigner = matchesValue(designers, battle.designer);
+  const matchesLevel = matchesLevelPatterns(levelPatterns, battle.level);
   const matchesBattleAttributes = matchesAttributes(battleAttributes, battle);
   const matchesDuration = matchesDurationRange(
     duration,
@@ -57,8 +57,8 @@ const battleMatchesConfigItem = (battle, configItem) => {
   );
 
   return (
-    matchesDesigner &&
     matchesBattleType &&
+    matchesDesigner &&
     matchesLevel &&
     matchesBattleAttributes &&
     matchesDuration
@@ -73,15 +73,15 @@ export const battleMatchesUserConfig = (battle, userConfig) =>
   !battleMatchesConfigList(battle, userConfig.ignoreList);
 
 export const getSubscribedUserIds = async ({ battle, store }) => {
-  const userConfigsById = await store.getAll();
-  const storedConfigs = Object.entries(userConfigsById);
-
-  const userIds = storedConfigs.reduce((acc, [userId, storedConfig]) => {
-    const userConfig = UserConfig(storedConfig);
+  const userConfigs = await store.getAllActive();
+  const userIds = [];
+  for (const userConfig of userConfigs) {
     const isSubscribed =
       userConfig.isOn && battleMatchesUserConfig(battle, userConfig);
-    return isSubscribed ? [...acc, userId] : acc;
-  }, []);
+    if (isSubscribed) {
+      userIds.push(userConfig.userId);
+    }
+  }
 
   return userIds;
 };

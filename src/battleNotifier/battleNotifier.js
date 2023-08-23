@@ -13,8 +13,8 @@ const logNotifyUserError = error => {
   });
 };
 
-const battleNotifier = ({ bnStorePath, client, fallbackChannelId }) => {
-  const store = createBnStore(bnStorePath);
+const battleNotifier = ({ apiUrl, client, fallbackChannelId }) => {
+  const store = createBnStore(apiUrl);
 
   const getFallbackChannel = () => client.channels.cache.get(fallbackChannelId);
 

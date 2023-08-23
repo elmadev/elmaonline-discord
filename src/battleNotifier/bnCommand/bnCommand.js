@@ -16,6 +16,10 @@ const noCommandFound = async message => {
   await message.channel.send(messages.seeAvailableCommands);
 };
 
+const isUserLinkedToBn = async ({ user, store }) => {
+  return await store.isUserLinked(user.id);
+};
+
 export default {
   name: 'bn',
   execute: async ({ message, args, store }) => {
@@ -23,6 +27,13 @@ export default {
     const subCommand = args && args[0] && args[0].toLowerCase();
 
     try {
+      const isLinked = await isUserLinkedToBn({ user, store });
+      if (!isLinked) {
+        const notLinkedMessage = await user.send(messages.notLinked);
+        await notLinkedMessage.suppressEmbeds();
+        return;
+      }
+
       if (!subCommand) {
         await setBn({ message, store });
       } else if (subCommand === 'get') {
@@ -43,6 +54,7 @@ export default {
         await noCommandFound(message);
       }
     } catch (error) {
+      console.error(error);
       const errorMessage =
         error instanceof TimeOutError
           ? error.message

@@ -1,11 +1,11 @@
-const getUserConfig = require('../getUserConfig');
-const { messages } = require('../../../config');
+import getUserConfig from '../getUserConfig';
+import { messages } from '../../../config';
 
-const {
+import {
   mockStore,
   mockUser,
   userConfigsExample1,
-} = require('../../../../testUtils');
+} from '../../../../testUtils';
 
 const { yourConfigMessage } = getUserConfig.messages;
 

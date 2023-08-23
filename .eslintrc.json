@@ -22,5 +22,6 @@
       }
     ]
   },
-  "plugins": ["prettier"]
+  "plugins": ["prettier"],
+  "types": ["vitest/globals"]
 }

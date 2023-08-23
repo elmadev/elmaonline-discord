@@ -1,4 +1,4 @@
-const userConfigsExample1 = require('./userConfigsExample1');
+import userConfigsExample1 from './userConfigsExample1';
 
 const userConfigs = {
   typesAndDesigners: userConfigsExample1['1'],
@@ -14,4 +14,4 @@ const userConfigs = {
   all: userConfigsExample1['9'],
 };
 
-module.exports = userConfigs;
+export default userConfigs;

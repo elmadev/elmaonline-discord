@@ -1,21 +1,25 @@
 const commaSeparator = ', ';
-const cammelCaseRegexp = /([a-z])([A-Z])/g;
+const camelCaseRegexp = /([a-z])([A-Z])/g;
 
-const separateCammelCase = value => value.replace(cammelCaseRegexp, '$1 $2');
+const separateCamelCase = value => value.replace(camelCaseRegexp, '$1 $2');
 
 const capitalize = string => {
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
 const formatValues = (values, separator, format = value => value) => {
-  const cleanedValeus = values.filter(value => Boolean(value));
-  return cleanedValeus.map(value => format(value)).join(separator);
+  const cleanedValues = values.filter(value => Boolean(value));
+  return cleanedValues.map(value => format(value)).join(separator);
 };
 
 export const areUserConfigListsEmpty = userConfig => {
   return (
     userConfig.notifyList.length === 0 && userConfig.ignoreList.length === 0
   );
+};
+
+export const isUserConfigEmpty = userConfig => {
+  return !userConfig || areUserConfigListsEmpty(userConfig);
 };
 
 const formatDuration = item => {
@@ -56,7 +60,7 @@ const userConfigFormatter = ({ keywords }) => {
       const battleAttributes = formatValues(
         item.battleAttributes,
         commaSeparator,
-        value => separateCammelCase(value).toLowerCase(),
+        value => separateCamelCase(value).toLowerCase(),
       );
       const formattedAttrs = `(${battleAttributes})`;
       result = result ? `${result} ${formattedAttrs}` : formattedAttrs;

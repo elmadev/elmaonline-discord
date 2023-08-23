@@ -1,10 +1,14 @@
-import { writeJsonFile, readJsonFile } from './jsonFs';
-import { createParentFolder } from '../../fileUtils';
+import { create } from 'apisauce';
+import config from '../../config.js';
 import bnStore from './bnStore';
 
-export default bnStore({
-  writeJsonFile,
-  readJsonFile,
-  createParentFolder,
-  dateNow: () => new Date().toISOString(),
+const api = create({
+  baseURL: config.discord.bn.serverApiUrl,
+  headers: {
+    Accept: 'application/json',
+    'Cache-Control': 'no-cache',
+    Authorization: config.discord.bn.serverApiAuth,
+  },
 });
+
+export default bnStore({ api });

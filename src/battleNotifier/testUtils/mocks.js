@@ -1,35 +1,53 @@
-const mockStore = userConfigs => {
+import { vi } from 'vitest';
+
+export const mockStore = userConfigs => {
   return {
-    get: jest.fn(id => Promise.resolve(userConfigs[id])),
-    set: jest.fn(() => Promise.resolve()),
-    getAll: jest.fn(() => Promise.resolve(userConfigs)),
+    get: vi.fn(userId => Promise.resolve(userConfigs[userId])),
+    set: vi.fn(() => Promise.resolve()),
+    getAllActive: vi.fn(() =>
+      Promise.resolve(
+        Object.entries(userConfigs).map(([userId, config]) => ({
+          ...config,
+          userId: userId + '',
+        })),
+      ),
+    ),
+    toggleIsOn: vi.fn(() => Promise.resolve()),
+    isUserLinked: vi.fn(() => Promise.resolve()),
   };
 };
 
-const mockMessage = ({ author, channel, content }) => {
+export const mockServerApi = () => {
+  return {
+    get: vi.fn(() => Promise.resolve()),
+    post: vi.fn(() => Promise.resolve()),
+  };
+};
+
+export const mockMessage = ({ author, channel, content }) => {
   return {
     content,
     author,
-    send: jest.fn(() => Promise.resolve({ channel })),
-    react: jest.fn(() => Promise.resolve()),
+    send: vi.fn(() => Promise.resolve({ channel })),
+    react: vi.fn(() => Promise.resolve()),
   };
 };
 
-const mockSendMessage = () =>
-  jest.fn(message => Promise.resolve(mockMessage({ content: message })));
+export const mockSendMessage = () =>
+  vi.fn(message => Promise.resolve(mockMessage({ content: message })));
 
-const mockUser = (id, username = 'RandomUser') => {
+export const mockUser = (id, username = 'RandomUser') => {
   return { id, username, send: mockSendMessage() };
 };
 
-const mockChannel = ({ userReply }) => {
+export const mockChannel = ({ userReply }) => {
   return {
-    readUserMessage: jest.fn(() => Promise.resolve(userReply)),
+    readUserMessage: vi.fn(() => Promise.resolve(userReply)),
     send: mockSendMessage(),
   };
 };
 
-const mockBattle = ({
+export const mockBattle = ({
   battleType = '',
   designer = '',
   level = '',
@@ -38,5 +56,3 @@ const mockBattle = ({
 }) => {
   return { battleType, designer, level, durationMinutes, ...attrs };
 };
-
-module.exports = { mockStore, mockUser, mockMessage, mockChannel, mockBattle };

@@ -26,13 +26,12 @@ export const UserConfigLists = values => {
 };
 
 export const UserConfig = values => {
-  const createdAt = values.createdAt || '';
-  const updatedAt = values.updatedAt || '';
-  const isOn = values.isOn !== undefined ? values.isOn : true;
+  const kuskiIndex = values.kuskiIndex;
+  const userId = values.userId;
+  const isOn = values.isOn !== undefined ? values.isOn : false;
   const lists = UserConfigLists({
     notifyList: values.notifyList,
     ignoreList: values.ignoreList,
   });
-  const username = values.username || '';
-  return { createdAt, updatedAt, isOn, ...lists, username };
+  return { kuskiIndex, userId, isOn, ...lists };
 };

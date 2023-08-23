@@ -1,7 +1,5 @@
-module.exports = {
-  '1': {
-    createdAt: '2020-09-11T20:43:03.537Z',
-    updatedAt: '2020-09-11T21:22:50.119Z',
+export default {
+  1: {
     isOn: true,
     notifyList: [
       {
@@ -14,11 +12,8 @@ module.exports = {
       },
     ],
     ignoreList: [],
-    username: 'Kopaka',
   },
-  '2': {
-    createdAt: '2020-09-11T20:47:49.039Z',
-    updatedAt: '2020-09-12T19:07:37.900Z',
+  2: {
     isOn: true,
     notifyList: [
       {
@@ -39,9 +34,8 @@ module.exports = {
       },
     ],
     ignoreList: [],
-    username: 'Pab',
   },
-  '3': {
+  3: {
     isOn: false,
     notifyList: [
       {
@@ -54,11 +48,8 @@ module.exports = {
       },
     ],
     ignoreList: [],
-    username: 'Sla',
   },
-  '4': {
-    createdAt: '2020-09-15T16:49:59.977Z',
-    updatedAt: '2020-09-15T16:52:33.354Z',
+  4: {
     isOn: true,
     notifyList: [
       {
@@ -80,21 +71,13 @@ module.exports = {
         maxDuration: 0,
       },
     ],
-    username: 'Bene',
   },
-  '5': {
-    createdAt: '2020-09-15T17:37:11.563Z',
-    updatedAt: '2020-09-15T19:37:39.237Z',
+  5: {
     isOn: true,
     notifyList: [],
     ignoreList: [],
-    username: 'Markku',
-    minDuration: 0,
-    maxDuration: 0,
   },
-  '6': {
-    createdAt: '2020-09-15T16:49:59.977Z',
-    updatedAt: '2020-09-15T16:52:33.354Z',
+  6: {
     isOn: true,
     notifyList: [
       {
@@ -107,11 +90,8 @@ module.exports = {
       },
     ],
     ignoreList: [],
-    username: 'Zero',
   },
-  '7': {
-    createdAt: '2020-09-15T16:49:59.977Z',
-    updatedAt: '2020-09-15T16:52:33.354Z',
+  7: {
     isOn: true,
     notifyList: [
       {
@@ -124,11 +104,8 @@ module.exports = {
       },
     ],
     ignoreList: [],
-    username: 'Zweq',
   },
-  '8': {
-    createdAt: '2020-09-15T16:49:59.977Z',
-    updatedAt: '2020-09-15T16:52:33.354Z',
+  8: {
     isOn: true,
     notifyList: [
       {
@@ -141,11 +118,8 @@ module.exports = {
       },
     ],
     ignoreList: [],
-    username: 'Barryp',
   },
-  '9': {
-    createdAt: '2020-09-15T16:49:59.977Z',
-    updatedAt: '2020-09-15T16:52:33.354Z',
+  9: {
     isOn: true,
     notifyList: [
       {
@@ -158,6 +132,5 @@ module.exports = {
       },
     ],
     ignoreList: [],
-    username: 'Pawq',
   },
 };

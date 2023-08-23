@@ -1,7 +1,7 @@
-const { keywords } = require('../../bnCommand/config');
-const { bnBattleTypes, bnBattleAttributes } = require('../../constants');
-const parser = require('../userConfigParser');
-const { UserConfigLists } = require('../UserConfig');
+import { keywords } from '../../bnCommand/config';
+import { bnBattleTypes, bnBattleAttributes } from '../../constants';
+import parser from '../userConfigParser';
+import { UserConfigLists } from '../UserConfig';
 
 const userConfigParser = parser({
   bnBattleTypes,
