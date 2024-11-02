@@ -6,6 +6,7 @@ import config from './config';
 import createBN from './battleNotifier';
 import logger from './logger';
 import notifMessage from './notifications';
+import levelMessage from './level';
 
 const client = new Discord.Client();
 
@@ -330,5 +331,15 @@ client.on('message', async message => {
       message: error.message || error,
       stack: error.stack,
     });
+  }
+});
+
+/* Level */
+
+client.on('message', async message => {
+  try {
+    await levelMessage(message);
+  } catch (error) {
+    message.reply('There was an error trying to execute that command!');
   }
 });
