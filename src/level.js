@@ -1,4 +1,5 @@
 import { MessageEmbed } from 'discord.js';
+import axios from 'axios';
 
 // Regular expression to capture an ID from a specific URL format
 const urlPattern = /https?:\/\/elma\.online\/levels\/(\d+)/;
@@ -6,12 +7,8 @@ const urlPattern = /https?:\/\/elma\.online\/levels\/(\d+)/;
 async function fetchLevel(levelId) {
   const apiUrl = `https://api.elma.online/api/level/${levelId}`;
   try {
-    const response = await fetch(apiUrl);
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    const data = await response.json();
-    return data;
+    const response = await axios.get(apiUrl);
+    return response.data;
   } catch (error) {
     return null;
   }
