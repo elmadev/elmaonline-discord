@@ -186,6 +186,19 @@ export const discordBesttime = content => {
     }
 
     sendMessage(config.discord.channels.times, text);
+
+    if (
+      levelIsInternal(content.level) &&
+      content.position === 1 &&
+      config.discord.channels.announcements
+    ) {
+      sendMessage(
+        config.discord.channels.announcements,
+        `:tada: New WR by **${content.kuski}** in ${formatLevel(
+          content.level,
+        )} with ${content.time}! :trophy:`,
+      );
+    }
   }
 };
 
