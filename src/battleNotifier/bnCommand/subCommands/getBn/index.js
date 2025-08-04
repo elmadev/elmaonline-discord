@@ -1,1 +1,1 @@
-export { default as default } from './getBn';
+export { default as default } from './getBn.js';

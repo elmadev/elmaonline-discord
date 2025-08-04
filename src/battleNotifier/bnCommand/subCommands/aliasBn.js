@@ -1,5 +1,5 @@
-import { bnBattleTypes, bnBattleAttributes } from '../../constants';
-import { getBattleVariations } from '../../userConfig';
+import { bnBattleTypes, bnBattleAttributes } from '../../constants/index.js';
+import { getBattleVariations } from '../../userConfig/index.js';
 
 const codeBlock = code => `\`\`\`${code}\`\`\``;
 

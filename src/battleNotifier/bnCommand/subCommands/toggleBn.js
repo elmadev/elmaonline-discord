@@ -1,4 +1,4 @@
-import { messages } from '../config';
+import { messages } from '../config.js';
 
 const toggleBn = async ({ message, store, isOn }) => {
   const user = message.author;

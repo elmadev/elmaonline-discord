@@ -1,5 +1,5 @@
-import { keywords, messages } from '../../config';
-import userConfig from '../../../userConfig';
+import { keywords, messages } from '../../config.js';
+import userConfig from '../../../userConfig/index.js';
 const userConfigFormatter = userConfig.formatter({
   keywords,
 });

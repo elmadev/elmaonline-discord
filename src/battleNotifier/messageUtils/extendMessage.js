@@ -1,5 +1,5 @@
 import { DMChannel, DiscordAPIError } from 'discord.js';
-import readUserMessage from './readUserMessage';
+import readUserMessage from './readUserMessage.js';
 
 const sendUser = async ({ user, message, fallbackChannel }) => {
   let sendError = null;

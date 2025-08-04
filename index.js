@@ -12,7 +12,7 @@ import discord, {
   discordBattleresults,
   discordBattleEnd,
 } from './src/discord.js';
-import config from './src/config';
+import config from './src/config.js';
 
 // start express and middleware
 const app = express();

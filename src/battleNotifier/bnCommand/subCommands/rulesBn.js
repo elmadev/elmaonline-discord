@@ -1,4 +1,4 @@
-import { messages } from '../config';
+import { messages } from '../config.js';
 
 const rulesMessage = `Always write one line per rule, use \`!bn\` to set your notifications.
 

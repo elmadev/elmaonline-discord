@@ -1,4 +1,4 @@
-import { UserConfig } from '../userConfig';
+import { UserConfig } from '../userConfig/index.js';
 
 const createBnStore =
   ({ writeJsonFile, readJsonFile, createParentFolder, dateNow }) =>

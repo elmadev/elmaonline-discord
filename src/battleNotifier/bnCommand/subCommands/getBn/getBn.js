@@ -1,7 +1,7 @@
-import { bnAdminIds } from '../../config';
-import getUserConfig from './getUserConfig';
-import getStore from './getStore';
-import getLog from './getLog';
+import { bnAdminIds } from '../../config.js';
+import getUserConfig from './getUserConfig.js';
+import getStore from './getStore.js';
+import getLog from './getLog.js';
 
 const getBn = async ({ user, store, args }) => {
   const isBnAdmin = bnAdminIds.includes(user.id);

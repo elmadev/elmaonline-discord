@@ -1,8 +1,8 @@
-import { battleMatchesUserConfig } from '../../notifyBattle';
+import { battleMatchesUserConfig } from '../../notifyBattle.js';
 
-import { emojis, keywords, messages } from '../config';
-import { bnBattleTypes, bnBattleAttributes } from '../../constants';
-import userConfig from '../../userConfig';
+import { emojis, keywords, messages } from '../config.js';
+import { bnBattleTypes, bnBattleAttributes } from '../../constants/index.js';
+import userConfig from '../../userConfig/index.js';
 const userConfigParser = userConfig.parser({
   bnBattleTypes,
   bnBattleAttributes,

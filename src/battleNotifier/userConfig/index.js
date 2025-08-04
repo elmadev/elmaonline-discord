@@ -1,7 +1,7 @@
-import userConfigParser from './userConfigParser';
-import userConfigFormatter from './userConfigFormatter';
-import { UserConfig, UserConfigLists } from './UserConfig';
-import { getBattleVariations } from './battleVariations';
+import userConfigParser from './userConfigParser.js';
+import userConfigFormatter from './userConfigFormatter.js';
+import { UserConfig, UserConfigLists } from './UserConfig.js';
+import { getBattleVariations } from './battleVariations.js';
 
 export default {
   parser: userConfigParser,
@@ -13,9 +13,9 @@ export default {
   UserConfigLists,
 };
 
-export { default as parser } from './userConfigParser';
-export { default as formatter } from './userConfigFormatter';
-export { getBattleVariations } from './battleVariations';
-export { areUserConfigListsEmpty } from './userConfigFormatter';
-export { isSimpleLevelPattern } from './userConfigParser';
-export { UserConfig, UserConfigLists } from './UserConfig';
+export { default as parser } from './userConfigParser.js';
+export { default as formatter } from './userConfigFormatter.js';
+export { getBattleVariations } from './battleVariations.js';
+export { areUserConfigListsEmpty } from './userConfigFormatter.js';
+export { isSimpleLevelPattern } from './userConfigParser.js';
+export { UserConfig, UserConfigLists } from './UserConfig.js';
