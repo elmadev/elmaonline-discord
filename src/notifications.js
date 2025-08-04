@@ -5,6 +5,11 @@ const notifMessage = (type, meta, url) => {
       meta.Text
     }" <${url}r/${meta.replayUUID}/${meta.replayName.replace('.rec', '')}>`;
   }
+  if (type === 'lgr_comment') {
+    text = `${meta.kuski} added a comment to your lgr: "${
+      meta.Text
+    }" <${url}l/${meta.LGRName}>`;
+  }
   if (type === 'beaten') {
     text = `${meta.kuski} crushed your record in level ${meta.level} <${url}levels/${meta.levelIndex}>`;
   }
