@@ -1,4 +1,4 @@
-import logger from '../../logger';
+import logger from '../../logger.js';
 import {
   setBn,
   getBn,
@@ -7,9 +7,9 @@ import {
   aliasBn,
   rulesBn,
   testBn,
-} from './subCommands';
-import { TimeOutError } from '../messageUtils';
-import { emojis, messages } from './config';
+} from './subCommands/index.js';
+import { TimeOutError } from '../messageUtils/index.js';
+import { emojis, messages } from './config.js';
 
 const noCommandFound = async message => {
   await message.react(emojis.notFound);

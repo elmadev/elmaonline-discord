@@ -1,9 +1,9 @@
 import { DiscordAPIError } from 'discord.js';
-import createBnStore from './bnStore';
-import bnCommand from './bnCommand';
-import { getSubscribedUserIds } from './notifyBattle';
-import { extendMessage } from './messageUtils';
-import logger from '../logger';
+import createBnStore from './bnStore/index.js';
+import bnCommand from './bnCommand/index.js';
+import { getSubscribedUserIds } from './notifyBattle.js';
+import { extendMessage } from './messageUtils/index.js';
+import logger from '../logger.js';
 
 const logNotifyUserError = error => {
   logger.log({

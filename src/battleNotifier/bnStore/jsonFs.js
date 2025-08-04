@@ -1,4 +1,4 @@
-import { readFile, writeFile } from '../../fileUtils';
+import { readFile, writeFile } from '../../fileUtils.js';
 
 export const readJsonFile = async path => {
   let result = {};

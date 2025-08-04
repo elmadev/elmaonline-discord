@@ -1,6 +1,6 @@
-import { emojis, keywords, messages } from '../config';
-import { bnBattleTypes, bnBattleAttributes } from '../../constants';
-import { parser, formatter, areUserConfigListsEmpty } from '../../userConfig';
+import { emojis, keywords, messages } from '../config.js';
+import { bnBattleTypes, bnBattleAttributes } from '../../constants/index.js';
+import { parser, formatter, areUserConfigListsEmpty } from '../../userConfig/index.js';
 
 const userConfigParser = parser({
   bnBattleTypes,

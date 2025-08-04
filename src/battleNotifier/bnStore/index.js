@@ -1,6 +1,6 @@
-import { writeJsonFile, readJsonFile } from './jsonFs';
-import { createParentFolder } from '../../fileUtils';
-import bnStore from './bnStore';
+import { writeJsonFile, readJsonFile } from './jsonFs.js';
+import { createParentFolder } from '../../fileUtils.js';
+import bnStore from './bnStore.js';
 
 export default bnStore({
   writeJsonFile,

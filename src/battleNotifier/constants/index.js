@@ -1,2 +1,2 @@
-export { bnBattleTypes } from './bnBattleTypes';
-export { bnBattleAttributes } from './bnBattleAttributes';
+export { bnBattleTypes } from './bnBattleTypes.js';
+export { bnBattleAttributes } from './bnBattleAttributes.js';

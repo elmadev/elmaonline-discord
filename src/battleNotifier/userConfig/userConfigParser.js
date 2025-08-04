@@ -1,4 +1,4 @@
-import { parseBattleVariations } from './battleVariations';
+import { parseBattleVariations } from './battleVariations.js';
 
 const spacesRegexp = / +/g;
 const moreThanOneSpaceRegexp = /\s\s+/g;

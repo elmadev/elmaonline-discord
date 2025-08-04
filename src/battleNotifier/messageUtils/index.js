@@ -1,7 +1,7 @@
-import { TimeOutError } from './readUserMessage';
-import extendMessage from './extendMessage';
+import { TimeOutError } from './readUserMessage.js';
+import extendMessage from './extendMessage.js';
 
 export default { TimeOutError, extendMessage };
 
-export { TimeOutError } from './readUserMessage';
-export { default as extendMessage } from './extendMessage';
+export { TimeOutError } from './readUserMessage.js';
+export { default as extendMessage } from './extendMessage.js';

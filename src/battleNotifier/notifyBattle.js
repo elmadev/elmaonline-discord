@@ -1,4 +1,4 @@
-import { UserConfig, isSimpleLevelPattern } from './userConfig';
+import { UserConfig, isSimpleLevelPattern } from './userConfig/index.js';
 
 const matchesValue = (array, value) => {
   const matchValue = value && value.toLowerCase();
