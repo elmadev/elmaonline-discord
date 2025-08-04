@@ -2,13 +2,19 @@ import Discord from 'discord.js';
 import bbcode2Markdown from 'bbcode-to-markdown';
 import { format } from 'date-fns';
 import { forEach } from 'lodash-es';
-import config from './config';
-import createBN from './battleNotifier';
-import logger from './logger';
-import notifMessage from './notifications';
-import levelMessage from './level';
+import config from './config.js';
+import createBN from './battleNotifier/index.js';
+import logger from './logger.js';
+import notifMessage from './notifications.js';
+import { levelMessage, intLevelMessage } from './level.js';
 
-const client = new Discord.Client();
+const client = new Discord.Client({
+  intents: [
+    Discord.Intents.FLAGS.GUILDS,
+    Discord.Intents.FLAGS.GUILD_MESSAGES,
+    Discord.Intents.FLAGS.DIRECT_MESSAGES,
+  ],
+});
 
 const isProdEnv = process.env.NODE_ENV === 'production';
 const { storePath, logsPath, fallbackChannelId } = config.discord.bn;
@@ -339,6 +345,15 @@ client.on('message', async message => {
 client.on('message', async message => {
   try {
     await levelMessage(message);
+  } catch (error) {
+    message.reply('There was an error trying to execute that command!');
+  }
+});
+
+/* !int command */
+client.on('message', async message => {
+  try {
+    await intLevelMessage(message);
   } catch (error) {
     message.reply('There was an error trying to execute that command!');
   }
